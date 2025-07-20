@@ -4,6 +4,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Gmail API credentials (IMPORTANT: Never commit these!)
+credentials.json
+token.json
+
 # Build outputs
 dist/
 build/

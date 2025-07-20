@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zynk Email Intelligence Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <h1>Zynk Email Intelligence</h1>
+                </div>
+                <div class="header-actions">
+                    <button id="refreshBtn" class="btn btn-primary">
+                        <i class="fas fa-sync-alt"></i>
+                        Refresh Emails
+                    </button>
+                    <div class="stats-summary" id="statsSummary">
+                        <span class="stat-item">
+                            <i class="fas fa-envelope"></i>
+                            <span id="totalCount">0</span> articles
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Section Tabs (Gmail-like horizontal bar) -->
+            <div class="section-tabs">
+                <button class="section-tab active" data-section="articles">
+                    <i class="fas fa-newspaper"></i>
+                    <span>Articles & Blogs</span>
+                    <span class="tab-count" id="count-articles">0</span>
+                </button>
+                <button class="section-tab" data-section="jobs">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Job Alerts</span>
+                    <span class="tab-count" id="count-jobs">0</span>
+                </button>
+                <button class="section-tab" data-section="promotions">
+                    <i class="fas fa-tags"></i>
+                    <span>Promotions</span>
+                    <span class="tab-count" id="count-promotions">0</span>
+                </button>
+                <button class="section-tab" data-section="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                    <span class="tab-count" id="count-notifications">0</span>
+                </button>
+                <button class="section-tab" data-section="personal">
+                    <i class="fas fa-user"></i>
+                    <span>Personal</span>
+                    <span class="tab-count" id="count-personal">0</span>
+                </button>
+            </div>
+
+            <!-- Content Layout -->
+            <div class="content-layout" id="contentLayout">
+                <!-- Sidebar (only visible for Articles section) -->
+                <aside class="sidebar" id="articlesSidebar">
+                    <div class="sidebar-section">
+                        <h3>Article Categories</h3>
+                        <div class="category-filters" id="categoryFilters">
+                            <button class="category-btn active" data-category="all">
+                                <i class="fas fa-th-large"></i>
+                                All Articles
+                                <span class="count" id="count-all">0</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h3>Quick Actions</h3>
+                        <button id="processEmailsBtn" class="btn btn-secondary full-width">
+                            <i class="fas fa-cogs"></i>
+                            Process New Emails
+                        </button>
+                    </div>
+                </aside>
+
+                <!-- Content Area -->
+                <div class="content-area">
+                <!-- Loading State -->
+                <div id="loadingState" class="loading-state">
+                    <div class="loading-spinner"></div>
+                    <p>Loading your intelligent email dashboard...</p>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <div class="empty-icon">
+                        <i class="fas fa-inbox"></i>
+                    </div>
+                    <h3>No Articles Found</h3>
+                    <p>Process your emails to see categorized articles and summaries here.</p>
+                    <button id="processFirstTime" class="btn btn-primary">
+                        <i class="fas fa-play"></i>
+                        Process My Emails
+                    </button>
+                </div>
+
+                <!-- Articles Grid -->
+                <div id="articlesGrid" class="articles-grid" style="display: none;">
+                    <div class="grid-header">
+                        <h2 id="currentCategory">All Articles</h2>
+                        <div class="view-options">
+                            <button class="view-btn active" data-view="grid">
+                                <i class="fas fa-th"></i>
+                            </button>
+                            <button class="view-btn" data-view="list">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="articlesList" class="articles-list">
+                        <!-- Article cards will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        </main>
+    </div>
+
+    <!-- Article Modal -->
+    <div id="articleModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Article Title</h2>
+                <button class="modal-close" id="modalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="article-meta">
+                    <span class="article-sender" id="modalSender"></span>
+                    <span class="article-date" id="modalDate"></span>
+                    <span class="article-category" id="modalCategory"></span>
+                </div>
+                <div class="article-content" id="modalContent">
+                    <!-- Full article content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast">
+        <div class="toast-content">
+            <i class="toast-icon"></i>
+            <span class="toast-message"></span>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
